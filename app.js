@@ -8,6 +8,8 @@ var routes = require('./routes');
 var user = require('./routes/user');
 var http = require('http');
 var path = require('path');
+// Require express-resource
+var resource = require('express-resource');
 
 var app = express();
 
@@ -22,6 +24,10 @@ app.use(express.urlencoded());
 app.use(express.methodOverride());
 app.use(app.router);
 app.use(express.static(path.join(__dirname, 'public')));
+
+
+// Load the resourceful route handler
+app.resource('things', require('./routes/things.js'));
 
 // development only
 if ('development' == app.get('env')) {
